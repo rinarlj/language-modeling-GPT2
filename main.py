@@ -9,7 +9,7 @@ from text_generation import generate_text
 output_dir = "./gpt2-malagasy"
 train_path, test_path = "./data/train_dataset.txt", "./data/test_dataset.txt"
 
-train_path, test_path = prepare_datasets(csv_path, train_path, test_path)
+train_path, test_path = prepare_datasets("/content/extracted/rakitra/rakitra.csv", train_path, test_path)
 
 model, tokenizer = setup_model_and_tokenizer()
 
