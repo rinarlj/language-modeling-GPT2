@@ -15,7 +15,7 @@ def train_model(model, tokenizer, train_dataset, test_dataset, output_dir="./gpt
     training_args = TrainingArguments(
         output_dir=output_dir,
         overwrite_output_dir=True,
-        num_train_epochs=2,
+        num_train_epochs=1,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=16,
         eval_steps=100,
@@ -24,7 +24,7 @@ def train_model(model, tokenizer, train_dataset, test_dataset, output_dir="./gpt
         prediction_loss_only=False,
         logging_dir="./logs",
         logging_steps=50,
-        report_to="none"  
+        report_to="wandb"  
     )
     
     trainer = Trainer(
@@ -35,11 +35,11 @@ def train_model(model, tokenizer, train_dataset, test_dataset, output_dir="./gpt
         eval_dataset=test_dataset,
     )
     
-    train_result = trainer.train()
+    trainer.train()
     
     metrics = trainer.evaluate()
 
     trainer.save_model(output_dir)
     tokenizer.save_pretrained(output_dir)
     
-    return {"train_result": train_result, "metrics": metrics}
+    return trainer
